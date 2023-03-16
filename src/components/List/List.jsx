@@ -1,28 +1,9 @@
 import React, { useState } from "react";
 import PlaceDetails from "../PlaceDetails/PlaceDetails";
 
-const List = () => {
-  const [type, setType] = useState("restaurant");
-  const [rating, setRating] = useState("");
-
-  const places = [
-    { name: "best hotel" },
-    { name: "best food" },
-    { name: "best hotesdadl" },
-    { name: "best dog" },
-    { name: "best hotel" },
-    { name: "best food" },
-    { name: "best hotesdadl" },
-    { name: "best dog" },
-    { name: "best hotel" },
-    { name: "best food" },
-    { name: "best hotesdadl" },
-    { name: "best dog" },
-    { name: "best hotel" },
-    { name: "best food" },
-    { name: "best hotesdadl" },
-    { name: "best dog" },
-  ];
+const List = ({places}) => {
+  const [type, setType] = useState('restaurant');
+  const [rating, setRating] = useState('');
 
   return (
     <div className="container">
@@ -58,9 +39,9 @@ const List = () => {
           </select>
         </form>
       </div>
-      <div className="containerList h-[75vh] overflow-auto">
+      <div className="containerList h-[83vh] overflow-auto flex flex-col items-center">
         {places?.map((place, i)=>(
-          <div item key={i} className='p-8'>
+          <div item key={i} className="w-4/5">
             <PlaceDetails place={place}/>
           </div>
         ))}

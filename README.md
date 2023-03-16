@@ -5,7 +5,7 @@
 
 ### Going to be hosted on Cloudflare Pages
 
-Click here to access [Website](https://45cc5081.donut-dd4.pages.dev/)
+Click here to access [Website]
 
 ### Features
 

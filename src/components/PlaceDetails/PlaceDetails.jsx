@@ -45,13 +45,13 @@ const PlaceDetails = ({ place }) => {
         </div>
         {place?.address &&(
           <div className="flex justify-between items-center mt-2">
-            <MapPinIcon class="h-[30px] w-[30px] text-gray-700" />
+            <MapPinIcon className="h-[30px] w-[30px] text-gray-700" />
             <div className="text-[12px] text-right">{place.address}</div>
           </div>
         )}
         {place?.phone &&(
           <div className="flex justify-between items-center mt-2">
-            <PhoneIcon class="h-5 w-5 text-gray-700" />
+            <PhoneIcon className="h-5 w-5 text-gray-700" />
             <div className="text-[12px] text-right">{place.phone}</div>
           </div>
         )}

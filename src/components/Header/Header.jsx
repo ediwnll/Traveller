@@ -1,49 +1,43 @@
-import { React, Fragment } from "react";
-import { Autocomplete } from "@react-google-maps/api";
-import { MagnifyingGlassIcon, ChartPieIcon, HomeModernIcon, HeartIcon } from "@heroicons/react/24/outline";
+import { React, Fragment, useState } from "react";
+import {Autocomplete} from "@react-google-maps/api";
+import {
+  MagnifyingGlassIcon,
+  ChartPieIcon,
+  HomeModernIcon,
+  HeartIcon,
+} from "@heroicons/react/24/outline";
 import { Menu, Transition } from "@headlessui/react";
 
+
 const Header = ({ setType, setRating, setCoordinates }) => {
+  const [autocomplete, setAutocomplete] = useState(null);
+
+  const onLoad = (autoCom) => setAutocomplete(autoCom);
+
+  const onPlaceChanged = () => {
+    const lat = autocomplete.getPlace().geometry.location.lat();
+    const lng = autocomplete.getPlace().geometry.location.lng();
+    setCoordinates({ lat, lng });
+  };
   return (
-    // <nav>
-    //   <div className=" flex justify-between static top-0 z-30 w-full py-6 bg-slate-800 text-white">
-    //     <div className="mainTitle">Traveller</div>
-    //     <div className="rightSideComp flex items-center gap-4">
-    //       <div>Explore the World</div>
-    //       {/*<Autocomplete>*/}
-    //       <div className="gap-2">
-    //         <div className="searchbarComponent">
-    //           <form className="pr-4">
-    //             <label>
-    //               <MagnifyingGlassIcon className=" pointer-events-none w-6 h-6 absolute text-black mt-[6px]"/>
-    //               <input placeholder="Search..." className='text-black rounded-3xl pl-7' type="text" name="location" />
-    //             </label>
-    //             <input type="submit" value={""}/>
-    //           </form>
-    //         </div>
-    //       </div>
-    //       {/*</Autocomplete>*/}
-    //     </div>
-    //   </div>
-    // </nav>
 
     <div className="flex absolute top-0 left-0 w-full px-4 py-2 z-50">
       <div className="flex">
-        {/* <Autocomplete> */}
-        <div className="flex rounded-md shadow-sm">
-          <input
-            type="text"
-            placeholder="Search"
-            className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-l-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-200 dark:border-gray-700 dark:text-slate-900 dar"
-          />
-          <button
-            type="button"
-            className="inline-flex flex-shrink-0 justify-center items-center h-[2.875rem] w-[2.875rem] rounded-r-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
-          >
-            <MagnifyingGlassIcon className=" h-4 w-4" />
-          </button>
-        </div>
-        {/* </Autocomplete> */}
+        <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+          <div className="flex rounded-md shadow-sm">
+            <input
+              type="text"
+              placeholder="Search"
+              className="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-l-md text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-200 dark:border-gray-700 dark:text-slate-900 dar"
+            />
+            <button
+              type="button"
+              className="inline-flex flex-shrink-0 justify-center items-center h-[2.875rem] w-[2.875rem] rounded-r-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+            >
+              <MagnifyingGlassIcon className=" h-4 w-4" />
+            </button>
+          </div>
+        </Autocomplete>
         <div className="flex items-center justify-center">
           <div className="flex items-center justify-center px-4 py-2 bg-white rounded-full ml-4 shadow-lg cursor-pointer hover:bg-slate-200 ease-in-out duration-75">
             <Menu as="div" className="relative">
@@ -342,19 +336,28 @@ const Header = ({ setType, setRating, setCoordinates }) => {
             </Menu>
           </div>
           {/* Restaurants */}
-          <div className="flex items-center justify-center px-4 py-2 bg-white rounded-full ml-4 shadow-lg cursor-pointer hover:bg-slate-200 ease-in-out duration-75" onClick={()=> setType('restaurants')}>
-            <ChartPieIcon className="h-6 w-6"/>
-            <div className=" text-base ml-2 font-medium">Restaurants</div> 
+          <div
+            className="flex items-center justify-center px-4 py-2 bg-white rounded-full ml-4 shadow-lg cursor-pointer hover:bg-slate-200 ease-in-out duration-75"
+            onClick={() => setType("restaurants")}
+          >
+            <ChartPieIcon className="h-6 w-6" />
+            <div className=" text-base ml-2 font-medium">Restaurants</div>
           </div>
           {/* Hotel */}
-          <div className="flex items-center justify-center px-4 py-2 bg-white rounded-full ml-4 shadow-lg cursor-pointer hover:bg-slate-200 ease-in-out duration-75" onClick={()=> setType('hotels')}>
-            <HomeModernIcon className="h-6 w-6"/>
-            <div className=" text-base ml-2 font-medium">Hotels</div> 
+          <div
+            className="flex items-center justify-center px-4 py-2 bg-white rounded-full ml-4 shadow-lg cursor-pointer hover:bg-slate-200 ease-in-out duration-75"
+            onClick={() => setType("hotels")}
+          >
+            <HomeModernIcon className="h-6 w-6" />
+            <div className=" text-base ml-2 font-medium">Hotels</div>
           </div>
           {/* Attraction */}
-          <div className="flex items-center justify-center px-4 py-2 bg-white rounded-full ml-4 shadow-lg cursor-pointer hover:bg-slate-200 ease-in-out duration-75" onClick={()=> setType('attractions')}>
-            <HeartIcon className="h-6 w-6"/>
-            <div className=" text-base ml-2 font-medium">Attraction</div> 
+          <div
+            className="flex items-center justify-center px-4 py-2 bg-white rounded-full ml-4 shadow-lg cursor-pointer hover:bg-slate-200 ease-in-out duration-75"
+            onClick={() => setType("attractions")}
+          >
+            <HeartIcon className="h-6 w-6" />
+            <div className=" text-base ml-2 font-medium">Attraction</div>
           </div>
         </div>
       </div>
